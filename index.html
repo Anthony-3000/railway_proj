@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Railway Fault Monitor</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <h1 class="page-title">RAILWAY FAULT MONITOR</h1>
+
+        <div class="stats">
+            <div class="stat-box">
+                <span class="stat-label">Total Faults</span>
+                <h2 id="totalCount">0</h2>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Critical Faults</span>
+                <h2 id="criticalCount">0</h2>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="file-input-wrapper">
+                <input type="file" id="excelFile" accept=".xlsx,.xls" />
+            </div>
+            <input type="text" id="codeSearch" placeholder="Search Fault Code..." onkeyup="applyFilters()" />
+            <input type="text" id="generalSearch" placeholder="Search Description / Assembly..." onkeyup="applyFilters()" />
+            <label class="checkbox-label">
+                <input type="checkbox" id="criticalOnly" onchange="applyFilters()" />
+                Critical Only
+            </label>
+            <button class="export-btn" onclick="exportCSV()">Export to Excel</button>
+        </div>
+
+        <div class="controls">
+          </div>
+
+      <div class="table-responsive">
+          <table>
+              <thead>
+                  <tr>
+                      <th onclick="sortTable('code')">Code ⬍</th>
+                      <th onclick="sortTable('desc')">Description ⬍</th>
+                      <th onclick="sortTable('assy')">Assembly ⬍</th>
+                      <th onclick="sortTable('crit')">Criticality ⬍</th>
+                  </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+          </table>
+      </div>
+      </div>
+    </div>
+
+    <div id="popup">
+        <div class="popup-box" id="popupBox">
+            <h2 id="popupTitle"></h2>
+            <div id="popupContent"></div>
+            <div class="popup-actions">
+                <button class="close-btn" onclick="closePopup()">CLOSE</button>
+                <button class="solution-btn" id="solutionBtn">SOLUTION</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
